@@ -27,9 +27,11 @@ def main(prog_args=None):
     target = Target(args_dict)
 
     # TODO: make a wordlist loader
-    wordlist = ["foo", "bar"]
+    # wordlist = ["foo", "bar"]
+    f = open(args.wordlist, "r")
+    words = list(f)
 
-    scan_engine = ScanEngine(target, wordlist)
+    scan_engine = ScanEngine(target, words)
     scan_engine.scan()
     scan_engine.print_report()
 
