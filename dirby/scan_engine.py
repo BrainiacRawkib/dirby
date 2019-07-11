@@ -1,4 +1,4 @@
-import requests
+from requests_futures.sessions import FuturesSession
 import sys
 import json
 
@@ -8,17 +8,26 @@ class ScanEngine:
         self.target = target
         self.wordlist = wordlist
         self.report = []
+        self.futures = []
 
     def request(self, url_path):
         r = requests.get(url_path)
         return {"url": url_path, "code": r.status_code}
 
     def scan(self):
+        # Build a FuturesSession for our requests
+        session = FuturesSession()
+
+        # Asyncronously start up all our futures
         for path in self.wordlist:
             url_path = self.target.url() + path
-            json = self.request(url_path)
-            self.report.append(json)
-            sys.stderr.write("[+] " + url_path)
+            self.futures.append(session.get(url_path))
+
+        # Syncronously verify all futures are done (and add to report)
+        for future in self.futures:
+            # First block on completion of the future
+            r = future.result()
+            self.report.append({"url": r.url, "code": r.status_code})
 
     def print_report(self):
         print(json.dumps({
