@@ -11,7 +11,7 @@ from dirby.scan_engine import ScanEngine
 def main(prog_args=None):
     example_text = '''example usage:
 
-     python ./dirby.py --host blog.rubidus.com --port 443'''
+     python ./dirby.py --scheme https --host blog.rubidus.com --port 443 --wordlist ./wordlists/small.txt'''
 
     parser = argparse.ArgumentParser(
         description="Perform a directory/path discovery of a web server and output to JSON.",
