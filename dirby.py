@@ -4,8 +4,8 @@ import argparse
 import json
 import os
 import sys
-from dirby import Target
-from dirby import ScanEngine
+from dirby.target import Target
+from dirby.scan_engine import ScanEngine
 
 
 def main(prog_args=None):

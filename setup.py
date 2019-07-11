@@ -12,7 +12,6 @@ config = {
     'version': "0.0.1",
     'install_requires': ['requests'],
     'packages': ['dirby'],
-    'scripts': ['dirby.py'],
     'name': 'dirby'
 }
 
