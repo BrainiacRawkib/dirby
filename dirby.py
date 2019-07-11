@@ -9,8 +9,13 @@ from dirby import ScanEngine
 
 
 def main(prog_args=None):
+    example_text = '''example usage:
+
+     python ./dirby.py --host blog.rubidus.com --port 443'''
+
     parser = argparse.ArgumentParser(
-        description="Perform a directory/path discovery of a web server and output to JSON.")
+        description="Perform a directory/path discovery of a web server and output to JSON.",
+        epilog=example_text)
     parser.add_argument("--wordlist", help="path to wordlist file")
     parser.add_argument("--host", help="host or IP to scan")
     parser.add_argument("--port", help="port to scan")
