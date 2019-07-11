@@ -10,6 +10,9 @@ class ScanEngine:
         self.report = []
         self.futures = []
 
+        # Always prepend a blank string so we always request the root
+        self.wordlist.insert(0, "")
+
     def request(self, url_path):
         r = requests.get(url_path)
         return {"url": url_path, "code": r.status_code}
@@ -20,7 +23,7 @@ class ScanEngine:
 
         # Asyncronously start up all our futures
         for path in self.wordlist:
-            url_path = self.target.url() + path
+            url_path = self.target.url() + path.rstrip()
             self.futures.append(session.get(url_path))
 
         # Syncronously verify all futures are done (and add to report)
