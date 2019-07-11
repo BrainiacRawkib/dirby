@@ -1,2 +1,2 @@
 # dirby
-A python implementation of a directory/path bruteforcer
+A prototype python implementation of a directory/path bruteforcer
