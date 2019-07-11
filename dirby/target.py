@@ -7,13 +7,13 @@ class Target:
     def url(self):
         return "{}://{}:{}/".format(self.scheme, self.host, self.port)
 
-    # def valid(self):
-    #     return self.valid_scheme()
+    def valid(self):
+        return self.valid_scheme() and self.valid_port()
 
-    # def valid_scheme(self):
-    #     return self.scheme == "http" or self.scheme == "https"
+    def valid_scheme(self):
+        return self.scheme == "http" or self.scheme == "https"
 
-    # def valid_port():
-    #     return self.port > 0 and self.port <= 65535
+    def valid_port(self):
+        return self.port > 0 and self.port <= 65535
 
     # TODO: Add HOST validation

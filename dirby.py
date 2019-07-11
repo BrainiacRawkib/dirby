@@ -25,6 +25,11 @@ def main(prog_args=None):
     args_dict = vars(args)
 
     target = Target(args_dict)
+    target = Target(args_dict)
+
+    if target.valid() == False:
+        print("Invalid target specified")
+        exit(1)
 
     # TODO: make a wordlist loader
     # wordlist = ["foo", "bar"]

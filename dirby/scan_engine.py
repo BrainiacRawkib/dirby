@@ -18,7 +18,7 @@ class ScanEngine:
             url_path = self.target.url() + path
             json = self.request(url_path)
             self.report.append(json)
-            sys.stderr.write("[+] " + url_path + "\n")
+            sys.stderr.write("[+] " + url_path)
 
     def print_report(self):
         print(json.dumps({
