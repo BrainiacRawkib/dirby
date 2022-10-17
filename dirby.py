@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+
 from dirby.target import Target
 from dirby.scan_engine import ScanEngine
 
@@ -22,7 +23,6 @@ def main(prog_args=None):
     args_dict = vars(args)
 
     target = Target(args_dict)
-    target = Target(args_dict)
 
     if target.valid() == False:
         print("Invalid target specified")
@@ -39,6 +39,7 @@ def main(prog_args=None):
         scan_engine.print_report()
     except Exception as e:
         exit(1)
+    f.close()
 
 
 if __name__ == "__main__":

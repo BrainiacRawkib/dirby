@@ -37,11 +37,15 @@ class ScanEngine:
                 # First block on completion of the future
                 r = future.result()
                 if r.status_code < 400:
-                    self.report.append({"url": r.url, "code": r.status_code})
+                    self.report.append({
+                        "url": r.url,
+                        "code": r.status_code
+                    })
         except Exception as e:
             return {}
 
     def print_report(self):
+        # open result.json
         file = open('result.json', 'w')
         print(json.dumps({
             'base_url': self.target.url(),
@@ -50,3 +54,5 @@ class ScanEngine:
             'scheme': self.target.scheme,
             'report': self.report
         }, sort_keys=True, indent=2, separators=(',', ': ')), file=file)
+        # close the file
+        file.close()
