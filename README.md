@@ -16,4 +16,5 @@ A prototype python implementation of a directory/path bruteforcer with JSON outp
 
 Ex:
     `python3 dirby.py --scheme https --host example.com --port 443 --wordlist ./wordlists/small.txt`
+
     `python3 dirby.py --scheme http --host example.com --port 80 --wordlist ./wordlists/common.txt`
