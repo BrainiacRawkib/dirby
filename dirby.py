@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
 import argparse
-import json
-import os
-import sys
 from dirby.target import Target
 from dirby.scan_engine import ScanEngine
 
@@ -36,9 +33,12 @@ def main(prog_args=None):
     f = open(args.wordlist, "r")
     words = list(f)
 
-    scan_engine = ScanEngine(target, words)
-    scan_engine.scan()
-    scan_engine.print_report()
+    try:
+        scan_engine = ScanEngine(target, words)
+        scan_engine.scan()
+        scan_engine.print_report()
+    except Exception as e:
+        exit(1)
 
 
 if __name__ == "__main__":

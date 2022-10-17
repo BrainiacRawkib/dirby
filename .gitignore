@@ -4,3 +4,7 @@ humanizer.egg-info
 .pytest_cache/
 humanizer_settings.json
 *.pyc
+
+venv/
+.idea/
+result.json

@@ -1,6 +1,8 @@
-from requests_futures.sessions import FuturesSession
-import sys
 import json
+
+import requests
+
+from requests_futures.sessions import FuturesSession
 
 
 class ScanEngine:
@@ -13,30 +15,38 @@ class ScanEngine:
         # Always prepend a blank string so we always request the root
         self.wordlist.insert(0, "")
 
-    def request(self, url_path):
-        r = requests.get(url_path)
-        return {"url": url_path, "code": r.status_code}
+    def request(self, url_path) -> dict:
+        try:
+            r = requests.Session().get(url_path)
+            return {"url": url_path, "code": r.status_code}
+        except Exception:
+            return {}
 
     def scan(self):
-        # Build a FuturesSession for our requests
-        session = FuturesSession()
+        try:
+            # Build a FuturesSession for our requests
+            session = FuturesSession()
 
-        # Asyncronously start up all our futures
-        for path in self.wordlist:
-            url_path = self.target.url() + path.rstrip()
-            self.futures.append(session.get(url_path))
+            # Asynchronously start up all our futures
+            for path in self.wordlist:
+                url_path = self.target.url() + path.rstrip()
+                self.futures.append(session.get(url_path))
 
-        # Syncronously verify all futures are done (and add to report)
-        for future in self.futures:
-            # First block on completion of the future
-            r = future.result()
-            self.report.append({"url": r.url, "code": r.status_code})
+            # Synchronously verify all futures are done (and add to report)
+            for future in self.futures:
+                # First block on completion of the future
+                r = future.result()
+                if r.status_code < 400:
+                    self.report.append({"url": r.url, "code": r.status_code})
+        except Exception as e:
+            return {}
 
     def print_report(self):
+        file = open('result.json', 'w')
         print(json.dumps({
             'base_url': self.target.url(),
             'host': self.target.host,
             'port': self.target.port,
             'scheme': self.target.scheme,
             'report': self.report
-        }, sort_keys=True, indent=2, separators=(',', ': ')))
+        }, sort_keys=True, indent=2, separators=(',', ': ')), file=file)
