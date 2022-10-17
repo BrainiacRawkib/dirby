@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+import sys
 
 from dirby.target import Target
 from dirby.scan_engine import ScanEngine
@@ -38,7 +39,7 @@ def main(prog_args=None):
         scan_engine.scan()
         scan_engine.print_report()
     except Exception as e:
-        exit(1)
+        sys.exit(1)
     f.close()
 
 
